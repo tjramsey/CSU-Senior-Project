@@ -39,18 +39,30 @@ I will need to learn how to implement artificial intelligence (ai) in Unity, as 
 
 Schedule
 
+2020
 - October 10: &quot;Functional&quot; and &quot;Look and Feel&quot; Requirements
 - October 17: &quot;Usability&quot; and &quot;Performance&quot; Requirements
-- October 24: &quot;Maintainability and Support&quot; and &quot;Security&quot; Requirments
+- October 24: &quot;Maintainability and Support&quot; and &quot;Security&quot; Requirements
 - October 31: &quot;Cultural&quot; Requirement
-- November 3: Completed Proposal and Requirments Document.
-- January 1: Finish Tutorial on Unity
-- January 15: List of quest completed
-- January 30: NPCs and Enemies in game
-- February 14: NPC dialogue 
-- February 28: Outcomes of Quest completion
-- March 1: Implementation of Project is complete/mostly complete
-- May : Completed Test Plan and game Tested
+- November 3: Completed Proposal and Requirements Document.
+
+2021
+
+- August 30: Updated Proposal, Schedule, and Requirements.
+- September week 1: Inventory and stats page.
+- September week 2: In-game and main menu.
+- September week 3: NPCs, Dialogue, Reputation System.
+- September week 4: Quests and Consequences.
+- October week 1: Work on Test Plan.
+- October 8: Draft Test Plan & Project Update due.
+- October week 2: Crafting System
+- October week 3 & 4: To Be Decided
+- November: Finalizing Test Plan
+- November 22: Final Test Plan & Project Repository due.
+
+2022
+- April or May: Project Defense due.
+- Lacking due dates to continue Schedule.
 
 References
 
