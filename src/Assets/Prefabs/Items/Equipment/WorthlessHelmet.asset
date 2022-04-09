@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed69a8e8dbdc5f4f8e63c28885d05e7, type: 3}
+  m_Name: WorthlessHelmet
+  m_EditorClassIdentifier: 
+  title: Worthless Helmet
+  icon: {fileID: 21300000, guid: 5ff9b869a12e70b4db7a137f84ed920b, type: 3}
+  stackable: 0
+  prefab: {fileID: 4297991048339183994, guid: 342bfb1bc4fec80449289c0805ab3f64, type: 3}
+  dropChance: 100
+  Components:
+  - item: {fileID: 11400000, guid: fb7c9cc36a6917843aaad492b4ef2fc6, type: 2}
+    amount: 1
+  data:
+    Name: Worthless Helmet
+    Id: 7
+    buffs:
+    - attribute: 0
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 1
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 2
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 3
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 4
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 5
+      min: -10
+      max: 0
+      value: 0
+    - attribute: 6
+      min: -10
+      max: 0
+      value: 0
+    value: 0
+    MaxVal: 1
+    MinVal: 0
+    SlotIndex: 0
+  type: 0
+  equipPosition: {fileID: 0}
+  EQUIPPEDITEM: {fileID: 0}

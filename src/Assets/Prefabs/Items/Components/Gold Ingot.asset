@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff071952e95ca2e44bb5f73065f94092, type: 3}
+  m_Name: Gold Ingot
+  m_EditorClassIdentifier: 
+  title: Gold Ingot
+  icon: {fileID: 21300000, guid: 39d66829824cb1d4da958035ee18213a, type: 3}
+  stackable: 1
+  prefab: {fileID: 4644548413511198494, guid: 3153cc86e1b36e64f81da6fd092f8afc, type: 3}
+  dropChance: 0
+  Components: []
+  data:
+    Name: 
+    Id: -1
+    buffs: []
+    value: 100
+    MaxVal: 100
+    MinVal: 100
+    SlotIndex: 0

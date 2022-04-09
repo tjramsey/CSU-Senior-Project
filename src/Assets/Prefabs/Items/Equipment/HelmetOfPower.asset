@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed69a8e8dbdc5f4f8e63c28885d05e7, type: 3}
+  m_Name: HelmetOfPower
+  m_EditorClassIdentifier: 
+  title: Helmet of Power
+  icon: {fileID: 21300000, guid: b227c6c1c35b36940b602110d9556b13, type: 3}
+  stackable: 0
+  prefab: {fileID: 4297991048339183994, guid: 342bfb1bc4fec80449289c0805ab3f64, type: 3}
+  dropChance: 10
+  Components:
+  - item: {fileID: 11400000, guid: df6fb53ab0b39264bbd6fa7e1ba4b77e, type: 2}
+    amount: 10
+  - item: {fileID: 11400000, guid: 21be3d10a62f80847b5c8fab84dd5951, type: 2}
+    amount: 10
+  - item: {fileID: 11400000, guid: d7990b11996deaa4c851dd2206a6c0fd, type: 2}
+    amount: 100
+  data:
+    Name: Helm of Power
+    Id: 3
+    buffs:
+    - attribute: 0
+      min: 10
+      max: 10
+      value: 10
+    - attribute: 1
+      min: 10
+      max: 10
+      value: 10
+    - attribute: 2
+      min: 10
+      max: 10
+      value: 0
+    - attribute: 3
+      min: 10
+      max: 10
+      value: 10
+    - attribute: 4
+      min: 10
+      max: 10
+      value: 10
+    value: 0
+    MaxVal: 1000
+    MinVal: 200
+    SlotIndex: 0
+  type: 0
+  equipPosition: {fileID: 0}
+  EQUIPPEDITEM: {fileID: 0}
