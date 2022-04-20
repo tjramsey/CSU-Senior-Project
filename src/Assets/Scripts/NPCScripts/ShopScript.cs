@@ -19,10 +19,15 @@ public class ShopScript : ContainerScript
     {
         AddSlots(30);
         UpdateShopGold();
+        ShopGold = 1000;
     }
 
-    public bool BuyItem(ItemObject item)
+    public bool BuyItem(ItemObject item, SlotScript newSpot)
     {
+        if(newSpot.MyBag is ShopScript)
+        {
+            return true;
+        }
         if(item.data.value > PlayerStats.MyInstance.PlayerGold)
         {
             ShopReaction.text = "You do not have enough gold for that item";
@@ -37,8 +42,9 @@ public class ShopScript : ContainerScript
             return true;
         }
     }
-    public bool SellItem(ItemObject item)
+    public bool SellItem(ItemObject item, SlotScript newSpot)
     {
+
         if(item.data.value > ShopGold)
         {
             ShopReaction.text = "I do not have enough gold for that item";
@@ -83,5 +89,17 @@ public class ShopScript : ContainerScript
     public void UpdateShopGold()
     {
         ShopGoldText.GetComponent<Text>().text = ShopGold.ToString();
+    }
+
+
+    public void closeShop()
+    {
+        container.closeShop();
+        AbleToShop = false;
+        PlayerStats.MyInstance.shopping = false;
+        UiManagerScript.MyInstance.OpenCloseShop();
+        UiManagerScript.MyInstance.OpenCloseInventory();
+        UiManagerScript.MyInstance.OpenCloseNPC();
+        
     }
 }

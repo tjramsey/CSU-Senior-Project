@@ -72,6 +72,7 @@ public class CharacterCreationWindow : MonoBehaviour
     public void Submit()
     {
         PlayerPrefs.SetString("CharacterName", NameTextField.text);
+        PlayerPrefs.SetString("Class", selected.MyName);
         PlayerPrefs.SetInt("Agility", skills[0].TotalSkillPoints);
         PlayerPrefs.SetInt("Charisma", skills[1].TotalSkillPoints);
         PlayerPrefs.SetInt("Endurance", skills[2].TotalSkillPoints);

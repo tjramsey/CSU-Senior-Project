@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class NPCChoices : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private static NPCChoices instance;
 
-    // Update is called once per frame
-    void Update()
+    public static NPCChoices MyInstance
     {
-        
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<NPCChoices>();
+            }
+            return instance;
+        }
+    }
+    
+    private NPC npc;
+
+    public NPC MyNPC {
+        get { return npc;}
+        set {npc = value;}
+    }
+    public void Action1()
+    {
+        npc.Action1Execute();
+    }
+    public void Action2()
+    {
+        npc.Action2Execute();
+    }
+    public void ExitExecute()
+    {
+        UiManagerScript.MyInstance.OpenCloseNPC();
     }
 }

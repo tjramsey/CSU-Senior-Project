@@ -25,8 +25,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6339613607420538572}
   m_LocalRotation: {x: -0, y: -0.03500382, z: -0, w: 0.9993872}
-  m_LocalPosition: {x: 0, y: 0, z: 70.34}
-  m_LocalScale: {x: 0.80875, y: 0.80875, z: 0.80875}
+  m_LocalPosition: {x: 0, y: 0, z: 71.19}
+  m_LocalScale: {x: 0.74070174, y: 0.74070174, z: 0.74070174}
   m_Children:
   - {fileID: 6339613608434197094}
   - {fileID: 6339613608561304118}
@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -4.012, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 537.45, y: -359.15}
+  m_AnchoredPosition: {x: 537.3904, y: -359.89}
   m_SizeDelta: {x: 7.1023045, y: 0.8936262}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6339613607420538573
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6339613608009894312}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 6339613606780003727}
   - component: {fileID: 2725117200751082486}
   - component: {fileID: 5058753336581623616}
+  - component: {fileID: 54531887634634418}
   m_Layer: 0
   m_Name: SPIDER
   m_TagString: Untagged
@@ -379,8 +380,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7950428698708291363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 537.172, y: 3.385, z: 70.599}
-  m_LocalScale: {x: 4.994152, y: 1.6348953, z: 3.9267056}
+  m_LocalPosition: {x: 537.172, y: 5.38, z: 70.599}
+  m_LocalScale: {x: 2.7853885, y: 0.9118302, z: 2.1900415}
   m_Children:
   - {fileID: 7950428697891117911}
   m_Father: {fileID: 0}
@@ -464,7 +465,7 @@ MonoBehaviour:
   modXP: 0
   TargetDistance: 0
   AttackDistance: 3
-  EnemyDamage: 0
+  EnemyDamage: 10
   EnemySpeed: 0
   staggered: 0
   attacking: 0
@@ -499,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eadb1c2857f1a8e40967f35005b0c047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 0}
   TheDistance: 0
   enemy: {fileID: 6339613606780003726}
   ActionDisplay: {fileID: 0}
@@ -522,7 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f1eb89092a5684e9aba9857f374894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: {fileID: 11400000, guid: 801437b071c4f3b4aa81807a6f1c4351, type: 2}
   loot:
   - item: {fileID: 11400000, guid: 56a98046458078d40a33053775a8aea8, type: 2}
     dropChance: 80
@@ -531,6 +532,22 @@ MonoBehaviour:
     dropChance: 75
     dropAmount: 1
   droppedItems: []
+--- !u!54 &54531887634634418
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950428698708291363}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 64
+  m_CollisionDetection: 0
 --- !u!1001 &7950428697890718131
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -66,9 +66,9 @@ public class NPC : MonoBehaviour
     }
 
     void OnMouseOver () {
-        if(TheDistance <= 3)
+        if(TheDistance <= 3 && UiManagerScript.MyInstance.MyShopOpen != true)
         {
-            ActionText.GetComponent<Text>().text = "Talk to" + NPCName;
+            ActionText.GetComponent<Text>().text = "Talk to " + NPCName;
             ActionDisplay.GetComponent<Text>().text = "[E]";
             //Crosshair.SetActive(false);
         }
@@ -78,16 +78,18 @@ public class NPC : MonoBehaviour
             //Crosshair.SetActive(true);
         }
 
-        if(Input.GetButtonDown("Action"))
+        if(Input.GetButtonDown("Action") )
         {
-            if(TheDistance <= 3)
+            if(TheDistance <= 3 && UiManagerScript.MyInstance.MyShopOpen != true)
             {
                 this.transform.LookAt(new Vector3(ThePlayer.transform.position.x, this.transform.position.y, ThePlayer.transform.position.z));
                 UiManagerScript.MyInstance.OpenCloseNPC();
                 ActionText.GetComponent<Text>().text = "";
                 ActionDisplay.GetComponent<Text>().text = "";
                 //ThePlayer.SetActive(false);
+                NPCChoices.MyInstance.MyNPC = this;
                 NPCGreet();
+
             }
         }
     }
@@ -137,9 +139,6 @@ public class NPC : MonoBehaviour
             NPCText.text = "This will be where some dialogue line will be";//Say random dialogue line will set up later
         }
     }
-    public void ExitExecute()
-    {
 
-    }
 }
 

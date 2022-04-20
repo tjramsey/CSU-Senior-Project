@@ -29,6 +29,7 @@ public class InflictDamage : MonoBehaviour
     IEnumerator weaponAttack() {
         DealingDamage = 2;
         yield return new WaitForSeconds (0.5f);
+        DamageAmount = PlayerStats.MyInstance.attributes[6].value;
         hit.transform.SendMessage ("DeductPoints", DamageAmount, SendMessageOptions.DontRequireReceiver);
         yield return new WaitForSeconds (0.5f);
         DealingDamage = 0;

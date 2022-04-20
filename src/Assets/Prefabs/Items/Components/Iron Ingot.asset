@@ -19,8 +19,8 @@ MonoBehaviour:
   dropChance: 0
   Components: []
   data:
-    Name: Silver Ingot
-    Id: -1
+    Name: Iron Ingot
+    Id: 10
     buffs: []
     value: 15
     MaxVal: 15

@@ -39,6 +39,7 @@ public class CharacterButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         MyIcon.GetComponent<Image>().color = new Color(0,0,0,0);
     }
 
+
     public void OnPointerClick(PointerEventData eventData)
     {
         
@@ -70,13 +71,17 @@ public class CharacterButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         Equipment prev;
         Equipment current;
         equip.Remove();
+        PlayerControls.MyInstance.Dequip();
         if(equippedItem != null)
         {
             if(equippedItem != equip)
             {
                 prev = equippedItem;
                 if(equip.MySlot != null){
-                    equip.MySlot.AddItem(equippedItem);
+                    equip.MySlot.AddItem(prev);
+                }
+                else{
+                    InventoryScript.MyInstance.AddItem(prev);
                 }
                 
             }
@@ -96,21 +101,20 @@ public class CharacterButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if(HandScript.MyInstance.MyMoveable == (equip as IMoveable))
             HandScript.MyInstance.Drop();
 
-        equip.show();
         current = equip;
+        PlayerControls.MyInstance.Equip();
         PlayerStats.MyInstance.UpdateEquipmentStats(prev,current);
+        PlayerStats.MyInstance.updateStats();
 
     }
 
     public void Dequip()
     {
-        equippedItem.hideItem();
         MyIcon.GetComponent<Image>().color = new Color(0,0,0,0);
         icon.sprite = null;
         PlayerStats.MyInstance.UpdateEquipmentStats(this.equippedItem,null);
         this.equippedItem = null;
-
-
+        PlayerStats.MyInstance.updateStats();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -18,7 +18,7 @@ public class SwingSword : MonoBehaviour
     
     IEnumerator SwingSwordFunction() {
         SwordStatus = 1;
-        this.GetComponent<Animation>().Play("IronSwordSwing");
+        this.GetComponent<Animation>().Play("SwordSwing");
         SwordStatus = 2;
         yield return new WaitForSeconds (1.0f);
         SwordStatus = 0;

@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Iron Shield
   icon: {fileID: 21300000, guid: 256205b9c6ca12c45ab7762da8a65631, type: 3}
   stackable: 0
-  prefab: {fileID: 584267816082458859, guid: 41e30d15c031d8d4cae7f1382b51ff9e, type: 3}
+  prefab: {fileID: 5433636113581220785, guid: 57b02ff9d0934a74aa003f340b3e5638, type: 3}
   dropChance: 0
   Components:
   - item: {fileID: 11400000, guid: df6fb53ab0b39264bbd6fa7e1ba4b77e, type: 2}
@@ -28,10 +28,11 @@ MonoBehaviour:
     Name: Iron Shield
     Id: 4
     buffs: []
-    value: 0
+    value: 15
     MaxVal: 15
     MinVal: 10
     SlotIndex: 0
   type: 3
   equipPosition: {fileID: 0}
-  EQUIPPEDITEM: {fileID: 0}
+  EQUIPPEDITEM: {fileID: 5278679018244245963, guid: 73956c874c1f2af41962b04c27900fb4,
+    type: 3}

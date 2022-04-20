@@ -61,7 +61,9 @@ public class PlayerData
 
     public List<AttributeData> MyAttributes;
 
-    public PlayerData(string name, int level, float xp, float maxXp, float health, float maxHealth, float mana, float maxMana, float stamina, float maxStamina, Vector3 position, float camerax, float cameraw, float charactery, float characterw)
+    public int MyGold {get; set;}
+
+    public PlayerData(string name, int level, float xp, float maxXp, float health, float maxHealth, float mana, float maxMana, float stamina, float maxStamina, Vector3 position, float camerax, float cameraw, float charactery, float characterw, int gold)
     {
         this.MyName = name;
         this.MyLevel = level;
@@ -84,6 +86,8 @@ public class PlayerData
         this.MyRotW = cameraw;
 
         this.MyAttributes = new List<AttributeData>();
+
+        this.MyGold = gold;
 
     }
 }

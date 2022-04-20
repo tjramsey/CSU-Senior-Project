@@ -5,8 +5,6 @@ using UnityEngine;
 public class LootTable : MonoBehaviour
 {
     [SerializeField]
-    private DatabaseItems database;
-    [SerializeField]
     private Loot[] loot;
 
     [SerializeField]
@@ -27,6 +25,8 @@ public class LootTable : MonoBehaviour
                     if(item.MyItem.stackable == false){
                         ItemObject UniqueItem = Object.Instantiate(item.MyItem);
                         UniqueItem.data = new Item(UniqueItem);
+                        UniqueItem.data.value = item.MyItem.data.value;
+                        Debug.Log(UniqueItem.data.value);
                         
                         droppedItems.Add(UniqueItem);
                     }

@@ -19,8 +19,8 @@ MonoBehaviour:
   dropChance: 0
   Components: []
   data:
-    Name: 
-    Id: -1
+    Name: Gold Ingot
+    Id: 8
     buffs: []
     value: 100
     MaxVal: 100

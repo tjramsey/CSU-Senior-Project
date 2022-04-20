@@ -27,11 +27,16 @@ MonoBehaviour:
   data:
     Name: 
     Id: 5
-    buffs: []
-    value: 0
+    buffs:
+    - attribute: 5
+      min: 5
+      max: 15
+      value: 5
+    value: 10
     MaxVal: 15
     MinVal: 10
-    SlotIndex: 0
+    SlotIndex: 13
   type: 4
   equipPosition: {fileID: 0}
-  EQUIPPEDITEM: {fileID: 0}
+  EQUIPPEDITEM: {fileID: 587789625181453031, guid: 5b5d285d3fec61d4fa54b2c2506db9f3,
+    type: 3}

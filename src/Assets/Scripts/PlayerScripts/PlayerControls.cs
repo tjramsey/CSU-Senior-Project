@@ -12,26 +12,65 @@ public class PlayerControls : MonoBehaviour
 	private bool isRunning = false;
 	private bool jumping = false;
 
+	[SerializeField]
+	private GameObject[] mainHandWeapons;
+	[SerializeField]
+	private GameObject[] offHandWeapons;
+
+	public CharacterButton mainHand;
+
+	public CharacterButton offHand;
+
+	private bool unsheathed;
+
+	private static PlayerControls instance;
+
+    public static PlayerControls MyInstance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<PlayerControls>();
+            }
+            return instance;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
+		unsheathed = false;
     }
     // Update is called once per frame
     void Update()
     {
-		if(Input.GetKey(KeyCode.O))
+		if(Input.GetKeyDown(KeyCode.F))
 		{
-			PlayerStats.MyInstance.TakeDamage(10);
+			if(unsheathed == false)
+			{
+				unsheathed = true;
+				Equip();
+			}
+			else
+			{
+				unsheathed = false;
+				Dequip();
+			}
 		}
-		if(Input.GetKey(KeyCode.I))
-		{
-			PlayerStats.MyInstance.TakeManaDamage(10);
-		}
-		if(Input.GetKey(KeyCode.U))
-		{
-			PlayerStats.MyInstance.TakeStaminaDamage(10);
-		}
+		// if(Input.GetKey(KeyCode.O))
+		// {
+		// 	PlayerStats.MyInstance.TakeDamage(10);
+		// }
+		// if(Input.GetKey(KeyCode.I))
+		// {
+		// 	PlayerStats.MyInstance.TakeManaDamage(10);
+		// }
+		// if(Input.GetKey(KeyCode.U))
+		// {
+		// 	PlayerStats.MyInstance.TakeStaminaDamage(10);
+		// }
 
 		if(Input.GetKey(KeyCode.LeftShift) && PlayerStats.MyInstance.currentStamina > 0 &&(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.D)))
 		{
@@ -64,6 +103,51 @@ public class PlayerControls : MonoBehaviour
 	{
 		// Inventory.Clear();
 		// Equipment.Clear();
+	}
+
+	public void Equip()
+	{
+		if(mainHand.MyItem != null){
+		foreach(GameObject go in mainHandWeapons)
+		{
+			Debug.Log(go.name+" : "+mainHand.MyItem.MyObject.name);
+			if(go.name == mainHand.MyItem.MyObject.name)
+			{
+				go.SetActive(true);
+				break;
+			}
+			else{
+				go.SetActive(false);
+			}
+		}
+		}
+		if(offHand.MyItem != null){
+		foreach(GameObject go in offHandWeapons)
+		{
+			Debug.Log(go.name+" : "+offHand.MyItem.MyObject.name);
+			if(go.name == offHand.MyItem.MyObject.name)
+			{
+				go.SetActive(true);
+				break;
+			}
+			else{
+				go.SetActive(false);
+			}
+		}
+		}
+		unsheathed = true;
+	}
+	public void Dequip()
+	{
+		foreach(GameObject go in mainHandWeapons)
+		{
+			go.SetActive(false);
+		}
+		foreach(GameObject go in offHandWeapons)
+		{
+			go.SetActive(false);
+		}
+		unsheathed = false;
 	}
 
 

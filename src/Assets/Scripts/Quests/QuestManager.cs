@@ -16,21 +16,6 @@ public class QuestManager : MonoBehaviour
     
 }
 
-// public class Quest
-// {
-//     public string title;
-//     public int goldReward;
-//     public int experienceReward;
-//     public string extraReward;
-//     public string Objective;
-//     public string Location;
-//     public QuestGoal questGoal = new QuestGoal();
-//     public int Amount;
-//     public bool Complete;
-//     public bool taken;
-//     public bool takenByPlayer;
-// }
-
 public class QuestGoal
 {
     public GoalType goalType;

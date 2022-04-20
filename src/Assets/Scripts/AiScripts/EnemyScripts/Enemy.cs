@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public float AttackDistance;
     public float EnemyDamage;
     public float EnemySpeed;
+    private float DamageDealt;
 
     private Container container;
 
@@ -70,23 +71,25 @@ public class Enemy : MonoBehaviour
             transform.LookAt(ThePlayer.transform);
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
             {
-                TargetDistance = hit.distance;
-                if(TargetDistance > AttackDistance && attacking == false)
-                {
-                    EnemySpeed = 0.05f;
-                    GetComponentInChildren<Animation>().Play("walk");
-                    transform.position = Vector3.MoveTowards(transform.position, ThePlayer.transform.position, EnemySpeed);
+                if(hit.collider.gameObject.tag == "player"){
+                    TargetDistance = hit.distance;
+                    if(TargetDistance > AttackDistance  && attacking == false)
+                    {
+                        EnemySpeed = 0.05f;
+                        GetComponentInChildren<Animation>().Play("walk");
+                        transform.position = Vector3.MoveTowards(transform.position, ThePlayer.transform.position, EnemySpeed);
 
-                }
-                else{
-                if(TargetDistance <= AttackDistance && attacking == false)
-                {
-                    EnemySpeed = 0;
-                    if(staggered == false){
-                        GetComponentInChildren<Animation>().Play("attack");
-                        StartCoroutine(Attack());
                     }
-                }
+                    else{
+                        if(TargetDistance <= AttackDistance && attacking == false)
+                        {
+                            EnemySpeed = 0;
+                            if(staggered == false){
+                                GetComponentInChildren<Animation>().Play("attack");
+                                StartCoroutine(Attack());
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -104,12 +107,18 @@ public class Enemy : MonoBehaviour
 
     }
     IEnumerator Attack() {
-            attacking = true;
-            yield return new WaitForSeconds(0.5f);
-            if(enemyh.health > 0)
-                PlayerStats.MyInstance.TakeDamage(EnemyDamage);
-            yield return new WaitForSeconds(0.5f);
-            attacking = false;  
+        print(TargetDistance + " : " + AttackDistance);
+        attacking = true;
+        yield return new WaitForSeconds(0.5f);
+        if(enemyh.health > 0)
+            DamageDealt = EnemyDamage - PlayerStats.MyInstance.attributes[7].value;
+            if(DamageDealt < 0)
+            {
+                DamageDealt = 0;
+            }
+            PlayerStats.MyInstance.TakeDamage(DamageDealt);
+        yield return new WaitForSeconds(0.5f);
+        attacking = false; 
     }
     public IEnumerator DestroyBody()
     {

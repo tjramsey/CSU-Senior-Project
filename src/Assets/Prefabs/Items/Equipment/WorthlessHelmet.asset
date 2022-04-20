@@ -53,7 +53,7 @@ MonoBehaviour:
       max: 0
       value: 0
     value: 0
-    MaxVal: 1
+    MaxVal: 0
     MinVal: 0
     SlotIndex: 0
   type: 0

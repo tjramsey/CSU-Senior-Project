@@ -81,7 +81,6 @@ public class HandScript : MonoBehaviour
         
         if(MyMoveable is ItemObject && InventoryScript.MyInstance.MyFromSlot != null)
             {
-                //((MyMoveable as Item)).dropItem(dropArea);
                 (MyMoveable as ItemObject).MySlot.Clear();
                 
 

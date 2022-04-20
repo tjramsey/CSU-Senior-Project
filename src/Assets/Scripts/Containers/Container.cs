@@ -181,8 +181,7 @@ public class Container : MonoBehaviour
                 bag.AddItemInContainer(item);
             }
             FirstOpening = 1;
-            StoreItems();
-            
+            StoreItems();    
         }
         else{
             if(bag.MyEmptySlotCount < bag.MySlots.Length)
@@ -202,12 +201,6 @@ public class Container : MonoBehaviour
     {
         StoreItems();
         bag.Clear();
-        (bag as ShopScript).AbleToShop = false;
-        PlayerStats.MyInstance.shopping = false;
-        UiManagerScript.MyInstance.OpenCloseShop();
-        UiManagerScript.MyInstance.OpenCloseInventory();
-        UiManagerScript.MyInstance.OpenCloseNPC();
-        
     }
 
     void OnMouseExit() {
@@ -244,11 +237,11 @@ public class Container : MonoBehaviour
                 //slot.Clear();
             }
             else{
-                Debug.Log("Slot" + slot.MyIndex + "Item = null");
+                //Debug.Log("Slot" + slot.MyIndex + "Item = null");
             }
         }
         //bag.Clear();
-        print("Items");
+        //print("Items");
     }
 
     public bool IsEmpty()

@@ -85,6 +85,10 @@ public class UiManagerScript: MonoBehaviour
     {
         get {return ContainerOpen;}
     }
+    public bool MyShopOpen
+    {
+        get {return ShopOpen;}
+    }
     public bool MyQuestGiverOpen
     {
         get {return QuestGiverOpen;}
@@ -128,7 +132,7 @@ public class UiManagerScript: MonoBehaviour
        action1 = KeyCode.Alpha1;
        action2 = KeyCode.Alpha2;
        action3 = KeyCode.Alpha3;
-       openMenu = KeyCode.M;
+       openMenu = KeyCode.Escape;
        openInventory = KeyCode.Tab;
 
         OptionsMenuOpen = false;
@@ -197,7 +201,7 @@ public class UiManagerScript: MonoBehaviour
             HandScript.MyInstance.Drop();
             if(OptionsMenuOpen != true) 
             {
-                if(GameMenuOpen != true && SaveMenuOpen != true){
+                if(GameMenuOpen != true && SaveMenuOpen != true && ShopOpen != true && NPCOpen != true){
                     if(QuestGiverOpen == true)
                     {
                         OpenCloseQuestGiver();
@@ -210,13 +214,9 @@ public class UiManagerScript: MonoBehaviour
                         {
                             OpenCloseQuestLog();
                         }
-                        else if(ContainerOpen == true && ShopOpen != true)
+                        else if(ContainerOpen == true)
                         {
                             OpenCloseContainer();
-                        }
-                        else if(ShopOpen == true)
-                        {
-                            OpenCloseShop();
                         }
                         else if (EquipmentOpen == true)
                         {

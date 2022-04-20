@@ -119,12 +119,16 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     {
         if(PlayerStats.MyInstance.shopping == true)
         {
+            Debug.Log("Shopping");
             if(MyBag is ShopScript)
             {
                 if((MyBag as ShopScript).AbleToShop == true)
                 {
-                    if(!(MyBag as ShopScript).SellItem(item))
+                    Debug.Log("Selling");
+                    if(!(MyBag as ShopScript).SellItem(item, this))
                     {
+                        Debug.Log("Cannot sell");
+                        //InventoryScript.MyInstance.MyFromSlot.PutItemBack();
                         return false;
                     }
                     else{
@@ -136,13 +140,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             { 
                 BagScript FromBag = InventoryScript.MyInstance.MyFromSlot.MyBag;
                 if((FromBag as ShopScript).AbleToShop == true){
-                    if(!(FromBag as ShopScript).BuyItem(item))
+                    if(!(FromBag as ShopScript).BuyItem(item, this))
                     {
+                         //InventoryScript.MyInstance.MyFromSlot.PutItemBack();
                         return false;
-                    }
-                    else
-                    {
-                        Debug.Log("Bought" + item.MyTitle);
                     }
                 }
             }
@@ -236,7 +237,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             }
             else if (InventoryScript.MyInstance.MyFromSlot != null)//Have something to move
             {
-                if(PutItemBack() /*|| MergeItems(InventoryScript.MyInstance.MyFromSlot)*/ ||SwapItems(InventoryScript.MyInstance.MyFromSlot) || AddItems(InventoryScript.MyInstance.MyFromSlot.MyItems))
+                if(PutItemBack() /*|| MergeItems(InventoryScript.MyInstance.MyFromSlot)*/ ||SwapItems(InventoryScript.MyInstance.MyFromSlot) || AddItems(InventoryScript.MyInstance.MyFromSlot.MyItems, InventoryScript.MyInstance.MyFromSlot))
                 {
                     HandScript.MyInstance.Drop();
                     
@@ -264,13 +265,16 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         if(MyItem is IUseable)
         {
             (MyItem as IUseable).Use();
+            RemoveItem(MyItem);
+
             
         }
         else if(MyItem is Equipment)
         {
-            (MyItem as Equipment).Equip();            
+            (MyItem as Equipment).Equip();  
+            RemoveItem(MyItem);
+          
         }
-        RemoveItem(MyItem);
         
     }
 
@@ -295,17 +299,19 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         return false;
     }
 
-    public bool AddItems(ObservableStack<ItemObject> newItems)
+    public bool AddItems(ObservableStack<ItemObject> newItems, SlotScript fromSlot)
     {
-        if(IsEmpty || ( newItems.Peek().GetType() == MyItem.GetType() && newItems.Peek().data.Id == MyItem.data.Id))
+        if(IsEmpty || ( newItems.Peek().GetType() == MyItem.GetType() && newItems.Peek().data.Name == MyItem.data.Name))
         {
             int count = newItems.Count;
-
             for(int i = 0; i < count; i++)
             {
                 ItemObject item = newItems.Pop();
-                
-                AddItem(item);
+                Debug.Log("Adding item" + item.MyTitle);
+                if(AddItem(item) == false)
+                {
+                    newItems.Push(item);
+                }
             }
             return true;
         }
@@ -326,12 +332,12 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             //clear the from slot
             from.MyItems.Clear();
             //Add items to 'from' slot from the 'to' slot
-            from.AddItems(Items);
+            from.AddItems(Items, from);
 
             //Clear the 'to' slot
             Items.Clear();
             //Add items to 'to' slot from the 'from' slot
-            AddItems(tmpFrom);
+            AddItems(tmpFrom, this);
             return true;
 
         }
@@ -347,7 +353,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         if(from.MyItem.GetType() == MyItem.GetType())
         {
             //Debug.Log("Free space: " +free);
-            AddItems(from.MyItems);
+            AddItems(from.MyItems, from);
             // foreach(ItemObject item in from.MyItems)
             // {
             //     AddItem(item);

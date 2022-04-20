@@ -17,12 +17,13 @@ MonoBehaviour:
   stackable: 1
   prefab: {fileID: 5014336820367258323, guid: c133ff622ea82b04bb5bb615683f63a1, type: 3}
   dropChance: 90
-  MySlotIndex: 7
+  Components: []
   data:
     Name: Bread
     Id: 1
     buffs: []
-    value: 0
+    value: 3
     MaxVal: 3
     MinVal: 3
+    SlotIndex: 0
   health: 2

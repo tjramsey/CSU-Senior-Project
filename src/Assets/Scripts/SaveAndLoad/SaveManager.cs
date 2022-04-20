@@ -61,7 +61,7 @@ public class SaveManager : MonoBehaviour
     {
         if(PlayerPrefs.HasKey("Load"))
         {
-            Debug.Log("Loading game");
+            //Debug.Log("Loading game");
             Load(saveSlots[PlayerPrefs.GetInt("Load")]);
             PlayerPrefs.DeleteKey("Load");
         }
@@ -124,6 +124,7 @@ public class SaveManager : MonoBehaviour
                 file.Close();
 
                 PlayerPrefs.SetInt("Load", savedGame.MyIndex);
+                Debug.Log(data.MyScene);
                 SceneManager.LoadScene(data.MyScene);
                 //TimeController.MyInstance.SetCurrentDate(data.GameTime);
                 //LoadTime(data);
@@ -138,7 +139,7 @@ public class SaveManager : MonoBehaviour
     {
         if(File.Exists(Application.persistentDataPath + "/" + savedGame.gameObject.name+".dat"))
         {
-            Debug.Log(savedGame+ " found");
+            //Debug.Log(savedGame+ " found");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name+".dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
@@ -163,6 +164,7 @@ public class SaveManager : MonoBehaviour
             SaveData data = new SaveData();
 
             data.MyScene = SceneManager.GetActiveScene().name;
+            //Debug.Log("Scene" + data.MyScene);
 
             SaveTime(data);
             SaveBags(data);
@@ -178,7 +180,7 @@ public class SaveManager : MonoBehaviour
             file.Close();
 
             ShowSavedFiles(savedGame);
-            Debug.Log("Saved game");
+            //Debug.Log("Saved game");
         }
         catch(System.Exception)
         {
@@ -200,7 +202,8 @@ public class SaveManager : MonoBehaviour
             FPC.m_MouseLook.m_CameraTargetRot.x,
             FPC.m_MouseLook.m_CameraTargetRot.w,
             FPC.m_MouseLook.m_CharacterTargetRot.y,
-            FPC.m_MouseLook.m_CharacterTargetRot.w);
+            FPC.m_MouseLook.m_CharacterTargetRot.w,
+            tmp.PlayerGold);
         
         foreach(Attribute a in PlayerStats.MyInstance.attributes)
         {
@@ -210,17 +213,17 @@ public class SaveManager : MonoBehaviour
 
     private void SaveContainers(SaveData data)
     {
-        Debug.Log("Start Container save");
+        //Debug.Log("Start Container save");
         for(int i = 0; i < containers.Length; i++)
         {
             string  containername = containers[i].name;
-            Debug.Log("container name success");
+            //Debug.Log("container name success");
 
             int opened = containers[i].MyFirstOpening;
-            Debug.Log("opened success");
+            //Debug.Log("opened success");
 
             data.MyContainerData.Add(new ContainerData(containername, opened));
-            Debug.Log(" add container success");
+            //Debug.Log(" add container success");
 
             if(opened == 1)
             {
@@ -238,7 +241,7 @@ public class SaveManager : MonoBehaviour
                     ItemData temp = new ItemData(title, Idata,amount,index);
 
                     data.MyContainerData[i].AddItemData(temp);
-                    Debug.Log("Add item success");
+                    //Debug.Log("Add item success");
                 }
             }
             
@@ -249,7 +252,7 @@ public class SaveManager : MonoBehaviour
         if(InventoryScript.MyInstance.MyBagSlot.MyBag != null)
         {
             data.MyInventoryData.MyBagData = new BagData(InventoryScript.MyInstance.MyBagSlot.MyBag.MyTitle, InventoryScript.MyInstance.MyBagSlot.MyBag.MySlotCount, InventoryScript.MyInstance.MyBagSlot.MyBag.data);
-            Debug.Log(data.MyInventoryData.MyBagData.MyTitle + "saved");
+            //Debug.Log(data.MyInventoryData.MyBagData.MyTitle + "saved");
         }
     }
 
@@ -310,7 +313,7 @@ public class SaveManager : MonoBehaviour
     private void SaveTime(SaveData data)
     {
         data.GameTime = TimeController.MyInstance.getCurrentDay();
-        Debug.Log("Saved Game Time: "+ data.GameTime.ToString());
+        //Debug.Log("Saved Game Time: "+ data.GameTime.ToString());
     }
 
 
@@ -342,7 +345,7 @@ public class SaveManager : MonoBehaviour
                 LoadQuestGivers(data);
                 LoadQuests(data);
 
-                Debug.Log("Loaded Game");
+                //Debug.Log("Loaded Game");
             }
         }
         catch(System.Exception)
@@ -357,7 +360,7 @@ public class SaveManager : MonoBehaviour
     private void LoadTime(SaveData data)
     {
         TimeController.MyInstance.SetCurrentDate(data.GameTime);
-        Debug.Log("Loaded Game Time: "+ data.GameTime.ToString());
+        //Debug.Log("Loaded Game Time: "+ data.GameTime.ToString());
 
     }
     private void LoadPlayer(SaveData data)
@@ -372,6 +375,7 @@ public class SaveManager : MonoBehaviour
         PlayerStats.MyInstance.maxMana = data.MyPlayerData.MyMaxMana;
         PlayerStats.MyInstance.currentStamina = data.MyPlayerData.MyStamina;
         PlayerStats.MyInstance.maxStamina = data.MyPlayerData.MyMaxStamina;
+        PlayerStats.MyInstance.PlayerGold = data.MyPlayerData.MyGold;
         
         Player.transform.position = new Vector3(data.MyPlayerData.MyX, data.MyPlayerData.MyY, data.MyPlayerData.MyZ);
         FPC.m_MouseLook.m_CharacterTargetRot = new Quaternion (0f, data.MyPlayerData.MyRotY, 0f,data.MyPlayerData.MyRotW);
@@ -420,11 +424,11 @@ public class SaveManager : MonoBehaviour
     {
         if(data.MyInventoryData.MyBagData != null && data.MyInventoryData.MyBagData.MyData != null){
             Bag newBag = (Bag)Instantiate(items.ItemObjects.Find( x=>x.MyTitle == data.MyInventoryData.MyBagData.MyTitle));
-            Debug.Log("New Bag loaded: " + newBag.MyTitle);
+           // Debug.Log("New Bag loaded: " + newBag.MyTitle);
             newBag.data  = data.MyInventoryData.MyBagData.MyData;
             newBag.Initialize(data.MyInventoryData.MyBagData.MySlotCount);
             InventoryScript.MyInstance.LoadBag(newBag);
-            Debug.Log("Load bag");
+           // Debug.Log("Load bag");
         }
 
     }
@@ -478,7 +482,7 @@ public class SaveManager : MonoBehaviour
 
     private void Delete(SavedGame savedGame)
     {
-        Debug.Log("Delete" + savedGame.name);
+        //Debug.Log("Delete" + savedGame.name);
         if(File.Exists(Application.persistentDataPath + "/" + savedGame.gameObject.name+".dat")){
             File.Delete(Application.persistentDataPath + "/" + savedGame.gameObject.name+".dat");
             savedGame.HideInfo();

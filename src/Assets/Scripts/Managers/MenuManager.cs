@@ -15,6 +15,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject LoadMenu;
 
+    public void Start(){
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void NewGame(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

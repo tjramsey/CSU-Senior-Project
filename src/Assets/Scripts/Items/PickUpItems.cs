@@ -31,7 +31,7 @@ public class PickUpItems : MonoBehaviour
             if(TheDistance <= 2)
             {
                 closeEnough = true;
-                ActionText.GetComponent<Text>().text = "Pick up";
+                ActionText.GetComponent<Text>().text = "Pick up "+item.MyTitle;
                 ActionDisplay.GetComponent<Text>().text = "[E]";
                 if(Input.GetButtonDown("Action"))
                 {

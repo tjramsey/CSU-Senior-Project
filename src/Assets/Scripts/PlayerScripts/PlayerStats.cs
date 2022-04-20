@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityStandardAssets.Characters.FirstPerson;
+
 
 [System.Serializable]
 public class PlayerStats : MonoBehaviour
@@ -24,6 +26,9 @@ public class PlayerStats : MonoBehaviour
     }
 
     [SerializeField]
+    private FirstPersonController FPC;
+
+    [SerializeField]
     private string name;
     private float baseMaxHealth = 100.0f;
     public float maxHealth;
@@ -34,7 +39,7 @@ public class PlayerStats : MonoBehaviour
     private float baseMaxStamina = 100.0f;
     public float maxStamina;
     public float currentStamina;
-    public float staminaRegen = 0.01f;
+    public float staminaRegen = 0.1f;
     public int regenStamina;
 
     private float baseMaxMana = 100.0f;
@@ -49,15 +54,34 @@ public class PlayerStats : MonoBehaviour
 
     public Attribute[] attributes;
 
+    public GameObject LevelledUP;
+
     // public InventoryObject Inventory;
     // public InventoryObject Equipment;
 
     public GameObject PlayerStatValues;
 
-    public int PlayerGold;
+    private int gold;
+    
+    public int PlayerGold
+    {
+        get {return gold;}
+        set {
+            gold = value;
+            PlayerGoldText.text = gold + "gold";
+        }
+    }
     public Text PlayerGoldText;
 
+    public TextMeshProUGUI PlayerNameText;
+
     public bool shopping;
+
+    [SerializeField]
+    private int SkillPoints;
+
+    [SerializeField]
+    private TextMeshProUGUI RemainingPoints;
      
     [SerializeField]
     private int level;
@@ -78,8 +102,12 @@ public class PlayerStats : MonoBehaviour
     public float MyXp 
     {
         get { return currentExp;}
-        set { currentExp = value;}
+        set { currentExp = value;
+                ExpPercentage.text = ((currentExp/MyMaxXp)*100).ToString() + "%";}
     }
+
+    [SerializeField]
+    private TextMeshProUGUI ExpPercentage;
 
     [SerializeField]
     private float neededExp;
@@ -92,15 +120,25 @@ public class PlayerStats : MonoBehaviour
     public string MyName
     {
         get { return name;}
-        set {name = value;}
+        set {name = value;
+                PlayerNameText.text = name;}
     }
+
+    [SerializeField]
+    private GameObject ConfirmButton;
+
+    private int DamageFromStrength;
+
+    public string MyClass;
+
+    private bool upLevel;
 
     public void UpdateEquipmentStats(Equipment prev, Equipment current)
     {
-        Debug.Log("UpdateEquipment");
+        //Debug.Log("UpdateEquipment");
         if(prev == null && current != null)
         {
-            Debug.Log("Equipped" +current.MyTitle);
+            //Debug.Log("Equipped" +current.MyTitle);
             for(int i = 0; i < current.data.buffs.Length; i++)
             {
                 for(int j = 0; j < attributes.Length; j++)
@@ -157,13 +195,72 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkDead();
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            AddExp(10);
+        }
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            currentHealth = 0;
+        }
+        if(currentStamina <= 0)
+        {
+            FPC.LowStaminaRUN = true;
+        }
+        else{
+            FPC.LowStaminaRUN = false;
+        }
+        if(currentStamina < 20)
+        {
+            FPC.LowStaminaJMP = true;
+        }
+        else{
+            FPC.LowStaminaJMP = false;
+        }
         Regen();
         updateSliders();
     }
 
     public void SetStartStats()
     {
+        MyName = PlayerPrefs.GetString("CharacterName");
+        MyClass = PlayerPrefs.GetString("Class");
+        PlayerPrefs.DeleteKey("Class");
+        PlayerPrefs.DeleteKey("CharacterName");
+        PlayerNameText.text = MyName;
+        switch(MyClass)
+        {
+            case ("Knight"):
+                PlayerGold = 140;
+                break;
+
+            case ("Rogue"):
+                PlayerGold = 30;
+                break;
+
+            case ("Adventurer"):
+                PlayerGold = 75;
+                break;
+
+            case ("Mercharnt"):
+                PlayerGold = 200;
+                break;
+
+            case ("Farmer"):
+                PlayerGold = 10;
+                break;
+
+            case ("Barbarian"):
+                PlayerGold = 15;
+                break;
+            
+            default:
+                PlayerGold = 1;
+                MyClass = "No Class";
+                break;
+
+        }
+        int strengthIndex = 0;
         for (int i = 0; i < attributes.Length; i++)
         {
             attributes[i].SetParent(this);
@@ -191,9 +288,19 @@ public class PlayerStats : MonoBehaviour
             else if(attributes[i].type == Attributes.Strength)
             {
                 baseMaxHealth = baseMaxHealth + (attributes[i].value * 5f);
+                DamageFromStrength = attributes[i].value / 3;
+
+            }
+            else if(attributes[i].type == Attributes.Damage)
+            {
+                attributes[i].value = 1;
+                attributes[i].value += DamageFromStrength;
+                updateStatNums(attributes[i]);
+
             }
             //print(string.Concat("Attribute ", attributes[i].type, " parent", attributes[i].parent, "value = ", attributes[i].value));
         }
+
         currentHealth = maxHealth = baseMaxHealth;
         currentStamina = maxStamina = baseMaxStamina;
         currentMana = maxMana = baseMaxMana;
@@ -219,7 +326,28 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Updating" + statName);
         GameObject temp = GetChildWithName(PlayerStatValues, statName);
         print(string.Concat("Stat: ", statName," has changed and is now ", attribute.value));
+        int oldvalue;
+        int.TryParse(temp.GetComponent<TextMeshProUGUI>().text, out oldvalue);
+
         temp.GetComponent<TextMeshProUGUI>().text = attribute.value.ToString();
+
+        if(attribute.type == Attributes.Strength)
+        {
+           attributes[6].value -= DamageFromStrength;
+           DamageFromStrength = attribute.value/3;
+           attributes[6].value += DamageFromStrength;
+           attributes[6].tempvalue = attributes[6].value;
+            updateStatNums(attributes[6]);
+        }
+    }
+
+    public void updateStats()
+    {
+        foreach(Attribute a in attributes)
+        {
+            updateStatNums(a);
+
+        }
     }
 
     public void UpdatePlayerGold()
@@ -244,7 +372,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Game Over");
         }
     }
 
@@ -270,6 +398,8 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
+        checkDead();
+
     }
     public void RestoreHealth(float value)
     {
@@ -335,17 +465,85 @@ public class PlayerStats : MonoBehaviour
 
     public void AddExp(float exp)
     {
-        Debug.Log("Adding " + exp +" exp");
-        currentExp += exp;
+        MyXp += exp;
         if(currentExp >= neededExp)
         {
-            MyLevel++;
-            currentExp = currentExp - neededExp;
+            MyLevel+=1;
+            MyXp = currentExp - neededExp;
             neededExp = neededExp * 1.5f;
+            SkillPoints += MyLevel;
+            RemainingPoints.text = SkillPoints.ToString();
+            ConfirmButton.SetActive(true);
+            upLevel = true;
+            StartCoroutine(LevelledUp());
         }
     }
 
+    IEnumerator LevelledUp()
+    {
+        yield return new WaitForSeconds (0.5f);
+        LevelledUP.SetActive(true);
+        yield return new WaitForSeconds (2.0f);
+        LevelledUP.SetActive(false);
 
+    }
+
+    public void SpendSkillPoint(string skill)
+    {
+        if(SkillPoints >0 && upLevel == true){
+            foreach(Attribute a in attributes)
+            {
+                if(a.type.ToString() == skill)
+                {
+                    a.tempvalue += 1;
+                    SkillPoints --;
+                    RemainingPoints.text = SkillPoints.ToString();
+                    string statName = a.type.ToString() + "Stat";
+                    GameObject temp = GetChildWithName(PlayerStatValues, statName);
+                    temp.GetComponent<TextMeshProUGUI>().text = a.tempvalue.ToString();
+                    break;
+                }
+            }
+        }
+    }
+    public void RemoveSkillPoint(string skill)
+    {
+        if(upLevel == true){
+        foreach(Attribute a in attributes)
+        {
+            if(a.value == a.tempvalue)
+            {
+                break;
+            }
+            
+            if(a.type.ToString() == skill)
+            {
+                a.tempvalue -= 1;
+                SkillPoints ++;
+                RemainingPoints.text = SkillPoints.ToString();
+                string statName = a.type.ToString() + "Stat";
+                GameObject temp = GetChildWithName(PlayerStatValues, statName);
+                temp.GetComponent<TextMeshProUGUI>().text = a.tempvalue.ToString();
+                break;
+            }
+        }
+        }
+    }
+    public void LevelUp()
+    {
+
+        foreach(Attribute a in attributes)
+        {
+            a.value = a.tempvalue;
+            updateStatNums(a);
+        }
+
+        if(SkillPoints == 0)
+        {
+            ConfirmButton.SetActive(false);
+            upLevel = false;
+        }
+    }
 }
 
 [System.Serializable]
@@ -355,10 +553,13 @@ public class Attribute
     public PlayerStats parent;
     public Attributes type;
     public int value;
+    public int tempvalue;
+    public bool changed;
 
     public void SetParent(PlayerStats _parent)
     {
         parent = _parent;
+        tempvalue = value;
         
     }
     // public void AttributeModified()
@@ -368,9 +569,11 @@ public class Attribute
     public void AddModifier(int modvalue)
     {
         value += modvalue;
+        tempvalue = value;
     }
     public void RemoveModifier(int modvalue)
     {
         value -= modvalue;
+        tempvalue = value;
     }
 }

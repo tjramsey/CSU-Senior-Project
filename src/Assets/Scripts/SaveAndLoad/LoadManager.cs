@@ -28,6 +28,7 @@ public class LoadManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         foreach(SavedGame saved in saveSlots)
         {
             ShowSavedFiles(saved);
@@ -44,7 +45,7 @@ public class LoadManager : MonoBehaviour
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
             savedGame.ShowInfo(data);
-            savedGame.ShowInfo(data);
+            //savedGame.ShowInfo(data);
         }
         else
         {
@@ -93,6 +94,7 @@ public class LoadManager : MonoBehaviour
                 SaveData data = (SaveData)bf.Deserialize(file);
                 file.Close();
                 PlayerPrefs.SetInt("Load", savedGame.MyIndex);
+                Debug.Log(data.MyScene);
                 SceneManager.LoadScene(data.MyScene);
             }
     }

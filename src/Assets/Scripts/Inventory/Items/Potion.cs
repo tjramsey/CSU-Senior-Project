@@ -18,7 +18,6 @@ public class Potion : ItemObject, IUseable
     public void Use()
     {
 
-
         if(health != 0){
             if(PlayerStats.MyInstance.NeedsHealth()){
                 Remove();
@@ -38,5 +37,19 @@ public class Potion : ItemObject, IUseable
             }
         }
         
+    }
+
+    public string GetDescription(string stats)
+    {
+        if(health > 0)
+            stats += "\n" + health + " Health" ;
+
+        if(stamina > 0)
+            stats += "\n" + stamina + " Stamina";
+
+        if(mana > 0)
+            stats += "\n" + mana + " Mana";
+        return stats;
+
     }
 }

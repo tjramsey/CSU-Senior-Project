@@ -79,17 +79,25 @@ public abstract class ItemObject : ScriptableObject, IMoveable, IDescribeable
     {
         string stats = string.Empty;
         title = MyTitle;
-        stats += MyTitle+ "\n"+ data.value;
+        stats += MyTitle+ "\n"+ data.value + " Gold";
 
         for(int i = 0; i < data.buffs.Length; i++)
+        {
+            if(data.buffs[i].value > 0)
             {
-                if(data.buffs[i].value > 0)
-                {
-                    Debug.Log(data.buffs[i].attribute.ToString());
-                    stats += "\n" + data.buffs[i].value + " " +data.buffs[i].attribute.ToString();
-                }
-
+                Debug.Log(data.buffs[i].attribute.ToString());
+                stats += "\n" + data.buffs[i].value + " " +data.buffs[i].attribute.ToString();
             }
+
+        }
+        if(this is Food)
+        {
+            stats = (this as Food).GetDescription(stats);
+        }
+        else if(this is Potion)
+        {
+            stats = (this as Potion).GetDescription(stats);
+        }
 
         return stats;
     }
@@ -146,13 +154,13 @@ public class Item
     {
         Name = "";
         Id =-1;
-        value = 0;
     }
     public Item(ItemObject item)
     {
         Name = item.MyTitle;
         Id = item.data.Id;
-        value = UnityEngine.Random.Range(MinVal, MaxVal +1);
+        //value = item.data.value;
+        //value = UnityEngine.Random.Range(item.data.MinVal, item.data.MaxVal +1);
         Debug.Log(item.data.buffs.Length);
 
 
