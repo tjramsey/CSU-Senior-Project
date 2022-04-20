@@ -243,10 +243,7 @@ github repository: https://github.com/tjramsey/CSU-Senior-Project
 From the start this project was a challenge.
 1. I was working with a IDE I have never used, Unity.
 2. I had to learn C# from scratch
-3. 
-4.
-5.
-6.
+3. No budget
 
 # Future Enhancements
 
