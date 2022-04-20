@@ -17,9 +17,9 @@ Ideally, people would have the opportunity to play games where the world is affe
 
 Having a high replay value is crucial to the success of a video game. A game has increase replay value if the game world is affected by not only the actions and choices of the player but also the NPCs.
 
-#Research & Background
+# Research & Background
 
-Used these tutorials to learn how to use different features of Unity:
+#### Used these tutorials to learn how to use different features of Unity:
 
 Coding With Unity's Unity 3D Tutorial on Youtube - https://www.youtube.com/playlist?list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT 
 
@@ -27,7 +27,7 @@ Jimmy Vegas' How To Make An RPG Unity Tutorial on Youtube - https://www.youtube.
 
 inScope Studio' RPG tutorial on Youtube - https://www.youtube.com/watch?v=oHFOkMffPDc&list=PLX-uZVK_0K_6JEecbu3Y-nVnANJznCzix 
 
-Used these asset packs:
+#### Used these asset packs:
 
 Cainos' Pixel Art Icon Pack - RPG
 
