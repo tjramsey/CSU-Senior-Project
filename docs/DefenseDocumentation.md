@@ -1,4 +1,4 @@
-The Everchanging RPG
+#The Everchanging RPG
 
 13 April, 2022
 
@@ -16,6 +16,34 @@ Advisor: Sean Hayes
 Ideally, people would have the opportunity to play games where the world is affected by the player but also not centered around the player. Unfortunately, most game worlds either fully surround what the player does or is just a story where no actual changes can happen to the world that was not pre-planned to happen at a certain time. The predictable outcomes within of this type of game lower the chances of the gamer playing the game again. As Katie Salen and Eric Zimmerman put it, &quot;... it is crucial in a game that players don&#39;t know exactly how it will play out. If you knew who was going to win a game before it started, would you even bother to play?&quot; (Salen &amp; Zimmerman, 2003, p. 174). To make outcomes unpredictable, propose a game where both players and non-playable characters&#39; (NPCs) choices and actions could affect the game world. As a result, every playthrough of the game would be different from the previous one, hence adding massive replay value.
 
 Having a high replay value is crucial to the success of a video game. A game has increase replay value if the game world is affected by not only the actions and choices of the player but also the NPCs.
+
+#Research & Background
+
+Used these tutorials to learn how to use different features of Unity:
+
+Coding With Unity's Unity 3D Tutorial on Youtube - https://www.youtube.com/playlist?list=PLJWSdH2kAe_Ij7d7ZFR2NIW8QCJE74CyT 
+
+Jimmy Vegas' How To Make An RPG Unity Tutorial on Youtube - https://www.youtube.com/watch?v=l4Hijtk4NDc&list=PLZ1b66Z1KFKgp-sjQ8ldU3eh8DoQ3a14P 
+
+inScope Studio' RPG tutorial on Youtube - https://www.youtube.com/watch?v=oHFOkMffPDc&list=PLX-uZVK_0K_6JEecbu3Y-nVnANJznCzix 
+
+Used these asset packs:
+
+Cainos' Pixel Art Icon Pack - RPG
+
+Mister Necturus' Medieval Gold
+
+Nayrissa's SIMPLE FANTASY GUI
+
+Jose (Dogzerx) Diaz's Medieval Cartoon Warriors
+
+SICS Games' Low Poly Weapons
+
+karboosx's Mega Fantasy Props Pack
+
+Shapes' Nature Starter Kit 2
+
+Unity Technologies' Standared Assets (for Unity 2018.4)
 
 # Project Languages(s)
 
